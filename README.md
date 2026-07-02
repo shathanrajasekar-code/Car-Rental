@@ -228,3 +228,5 @@ You can use the seeded credentials to demonstrate both roles instantly:
 2. **SafarLock Geofence Violations**: Demonstrates simulated speeding (speeding past 120 km/h). An emergency flashing alert is displayed, and the administrator receives real-time overspeed violation alerts linked to the customer's billing.
 3. **GreenYatra Carbon Offset**: Allows eco-friendly users to offset 42 kg of CO₂ emissions for ₹45. Keeps a track of the total offset contribution.
 4. **Cascading Dropdowns**: Simplifies the vehicle search by filtering models according to selected brands.
+
+# Car-Rental
