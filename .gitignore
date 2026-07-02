@@ -41,3 +41,10 @@ dist/
 build/
 *.egg-info/
 
+# Report generation artifacts
+extracted_media/
+diagrams/
+screenshots/
+capture_screenshots.py
+
+
