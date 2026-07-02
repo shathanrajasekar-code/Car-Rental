@@ -56,89 +56,26 @@ def draw_line(draw, x1, y1, x2, y2, text="", arrow=True):
         draw.text(((x1 + x2) // 2 - len(text)*2.5, (y1 + y2) // 2 - 12), text, fill='black', font=font)
 
 def generate_diagrams():
+    import shutil
     os.makedirs('diagrams', exist_ok=True)
     
-    # 1. DFD Level 0 Context Diagram
-    img = Image.new('RGB', (800, 300), color='white')
-    draw = ImageDraw.Draw(img)
-    draw_rectangle(draw, 40, 100, 160, 180, "Customer", fill='#e2e8f0')
-    draw_oval(draw, 260, 70, 540, 210, "Car Rental System\n(MERN Stack Portal)")
-    draw_rectangle(draw, 640, 100, 760, 180, "Admin", fill='#e2e8f0')
-    draw_line(draw, 160, 120, 260, 120, "Credentials / Bookings")
-    draw_line(draw, 260, 160, 160, 160, "PDF Invoices / Toll logs")
-    draw_line(draw, 640, 160, 540, 160, "Manage Fleet / User locks")
-    draw_line(draw, 540, 120, 640, 120, "KPI Charts / Speed logs")
-    img.save('diagrams/dfd0.png')
+    # Paths to the AI-generated high-quality diagrams
+    dfd0_src = r"C:\Users\ragul\.gemini\antigravity-ide\brain\c0a3aeb0-fcc9-40e0-b6c9-c89c0bad659d\dfd_level_0_1783021398081.png"
+    dfd1_src = r"C:\Users\ragul\.gemini\antigravity-ide\brain\c0a3aeb0-fcc9-40e0-b6c9-c89c0bad659d\dfd_level_1_1783021417316.png"
+    dfd2_src = r"C:\Users\ragul\.gemini\antigravity-ide\brain\c0a3aeb0-fcc9-40e0-b6c9-c89c0bad659d\dfd_level_2_1783021432793.png"
+    erd_src = r"C:\Users\ragul\.gemini\antigravity-ide\brain\c0a3aeb0-fcc9-40e0-b6c9-c89c0bad659d\er_diagram_1783021448069.png"
+    sys_src = r"C:\Users\ragul\.gemini\antigravity-ide\brain\c0a3aeb0-fcc9-40e0-b6c9-c89c0bad659d\system_architecture_1783021461563.png"
 
-    # 2. DFD Level 1 Process Diagram
-    img = Image.new('RGB', (800, 450), color='white')
-    draw = ImageDraw.Draw(img)
-    draw_rectangle(draw, 40, 40, 140, 100, "Customer", fill='#e2e8f0')
-    draw_rectangle(draw, 660, 40, 760, 100, "Admin", fill='#e2e8f0')
-    draw_oval(draw, 260, 30, 420, 90, "1.0 Auth Control")
-    draw_oval(draw, 260, 110, 420, 170, "2.0 Browse Catalog")
-    draw_oval(draw, 260, 190, 420, 250, "3.0 Booking Engine")
-    draw_oval(draw, 260, 270, 420, 330, "4.0 Toll & Speed Sim")
-    draw_oval(draw, 480, 110, 620, 170, "5.0 Inventory CRUD")
-    draw_oval(draw, 480, 190, 620, 250, "6.0 Analytics Graph")
-    draw_rectangle(draw, 80, 370, 220, 410, "[Users DB]")
-    draw_rectangle(draw, 320, 370, 460, 410, "[Vehicles DB]")
-    draw_rectangle(draw, 560, 370, 700, 410, "[Bookings DB]")
-    draw_line(draw, 140, 70, 260, 70)
-    draw_line(draw, 140, 85, 260, 140)
-    draw_line(draw, 140, 95, 260, 210)
-    draw_line(draw, 660, 70, 620, 120)
-    draw_line(draw, 660, 85, 620, 210)
-    draw_line(draw, 340, 90, 200, 370)
-    draw_line(draw, 340, 170, 360, 370)
-    draw_line(draw, 340, 250, 600, 370)
-    img.save('diagrams/dfd1.png')
+    try:
+        shutil.copy(dfd0_src, "diagrams/dfd0.png")
+        shutil.copy(dfd1_src, "diagrams/dfd1.png")
+        shutil.copy(dfd2_src, "diagrams/dfd2.png")
+        shutil.copy(erd_src, "diagrams/erd.png")
+        shutil.copy(sys_src, "diagrams/sys_arch.png")
+        print("All high-quality generated diagrams successfully copied to diagrams/.")
+    except Exception as e:
+        print(f"Error copying diagrams: {e}")
 
-    # 3. DFD Level 2 Booking Sub-processes
-    img = Image.new('RGB', (800, 400), color='white')
-    draw = ImageDraw.Draw(img)
-    draw_rectangle(draw, 50, 50, 150, 110, "Customer", fill='#e2e8f0')
-    draw_oval(draw, 230, 50, 370, 110, "3.1 Validate Dates")
-    draw_oval(draw, 450, 50, 590, 110, "3.2 Check Conflicts")
-    draw_oval(draw, 450, 160, 590, 220, "3.3 Card Payment")
-    draw_oval(draw, 230, 160, 370, 220, "3.4 Confirm Booking")
-    draw_rectangle(draw, 230, 280, 370, 320, "[Vehicles DB]")
-    draw_rectangle(draw, 450, 280, 590, 320, "[Bookings DB]")
-    draw_line(draw, 150, 80, 230, 80)
-    draw_line(draw, 370, 80, 450, 80)
-    draw_line(draw, 520, 110, 520, 160)
-    draw_line(draw, 450, 190, 370, 190)
-    draw_line(draw, 300, 220, 300, 280)
-    draw_line(draw, 520, 220, 520, 280)
-    img.save('diagrams/dfd2.png')
-
-    # 4. Entity Relationship Diagram (ERD)
-    img = Image.new('RGB', (800, 350), color='white')
-    draw = ImageDraw.Draw(img)
-    draw_rectangle(draw, 50, 150, 150, 210, "USER", fill='#fee2e2')
-    draw_rectangle(draw, 340, 150, 460, 210, "BOOKING", fill='#fef08a')
-    draw_rectangle(draw, 650, 150, 750, 210, "VEHICLE", fill='#dcfce7')
-    draw_rectangle(draw, 340, 40, 460, 90, "PAYMENT", fill='#e0f2fe')
-    draw_rectangle(draw, 340, 260, 460, 310, "REVIEW", fill='#f3e8ff')
-    draw_line(draw, 150, 180, 340, 180, "places")
-    draw_line(draw, 650, 180, 460, 180, "reserved_in")
-    draw_line(draw, 400, 150, 400, 90, "triggers")
-    draw_line(draw, 400, 210, 400, 260, "receives")
-    img.save('diagrams/erd.png')
-
-    # 5. System Architecture Diagram
-    img = Image.new('RGB', (800, 350), color='white')
-    draw = ImageDraw.Draw(img)
-    draw_rectangle(draw, 60, 120, 240, 230, "React.js Client\n(Vite + Tailwind)", fill='#f0fdfa')
-    draw_rectangle(draw, 320, 120, 480, 230, "Node.js Server\n(Express.js API)", fill='#eff6ff')
-    draw_rectangle(draw, 560, 120, 740, 230, "MongoDB Database\n(Mongoose Schemas)", fill='#fdf2f8')
-    draw_line(draw, 240, 160, 320, 160, "JSON / HTTP")
-    draw_line(draw, 320, 190, 240, 190, "API Response")
-    draw_line(draw, 480, 165, 560, 165, "ODM Query")
-    draw_line(draw, 560, 185, 480, 185, "JSON Data")
-    img.save('diagrams/sys_arch.png')
-
-    print("All diagrams compiled and generated successfully in diagrams/.")
 
 # ==========================================================
 # PAGE NUMBER IN FOOTER HELPER
