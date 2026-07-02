@@ -30,10 +30,66 @@ Before running the application, make sure you have the following software instal
 
 ## 🚀 3. How to Run the Application
 
-Follow these steps in your PowerShell or Command Prompt terminal:
+You can launch the application using one of the three options below:
 
-### Step A: Configure the Environment Variables
-Before launching, make sure the backend configuration is correct. Ensure a `.env` file exists at `server/.env` with the following content:
+---
+
+### Option A: Python CLI Runner (Automated & Recommended)
+This is the simplest way to get everything configured and running in a single terminal.
+
+#### Step 1: Open Terminal in Project Directory
+Open PowerShell or Command Prompt and run:
+```powershell
+cd "C:\Users\ragul\.gemini\antigravity-ide\scratch\car-rental-admin-system"
+```
+
+#### Step 2: Install the CLI Package
+Install the project CLI locally using `pip`:
+```powershell
+pip install -e .
+```
+
+#### Step 3: Run the Setup
+Installs all backend and frontend Node packages and verifies prerequisites:
+```powershell
+car-rental setup
+```
+*(If the `car-rental` command is not found in your environment PATH, use `python -m car_rental_cli.main setup` instead)*
+
+#### Step 4: Seed/Reset Database
+Populates the database with default cars, customers, and admin accounts:
+```powershell
+car-rental seed
+```
+*(Or use: `python -m car_rental_cli.main seed`)*
+
+#### Step 5: Start Both Servers
+Starts the client and server concurrently, streaming and prefixing logs in the same window:
+```powershell
+car-rental start
+```
+*(Or use: `python -m car_rental_cli.main start`)*
+
+Once started, open `http://localhost:5173` in your browser. To stop the servers, simply press `Ctrl+C` in the terminal.
+
+---
+
+### Option B: One-Click Script Launcher
+We have provided automated wrapper scripts at the root of the project to set up and launch everything:
+*   **Windows**: Double-click or run [run.bat](file:///c:/Users/ragul/.gemini/antigravity-ide/scratch/car-rental-admin-system/run.bat).
+*   **macOS / Linux / Git Bash**: Run `bash run.sh` using [run.sh](file:///c:/Users/ragul/.gemini/antigravity-ide/scratch/car-rental-admin-system/run.sh).
+
+1. Make sure **MongoDB** is running locally on your computer.
+2. Double-click the **`run.bat`** file.
+3. The script will automatically check Node.js and MongoDB, create server `.env`, install frontend/backend dependencies, prompt you to seed the database, launch both servers in separate windows, and open `http://localhost:5173`.
+
+---
+
+### Option C: Manual Terminal Execution (No Python)
+If you don't have Python, follow these manual steps in your terminal:
+
+#### Step 1: Configure Environment Variables
+Create a `.env` file at `server/.env` with the following content:
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/car_rental_db
@@ -41,14 +97,7 @@ JWT_SECRET=supersecretkeyforcarrentalproject
 NODE_ENV=development
 ```
 
-### Step B: Open the Terminal in the Project Directory
-Open your PowerShell or Command Prompt and navigate to the project directory:
-```powershell
-cd "C:\Users\ragul\.gemini\antigravity-ide\scratch\car-rental-admin-system"
-```
-
-### Step C: Install Dependencies
-Install packages for both the backend (server) and the frontend (client):
+#### Step 2: Install Node Dependencies
 ```powershell
 # 1. Install Server Dependencies
 cd server
@@ -59,32 +108,27 @@ cd ../client
 npm install
 ```
 
-### Step D: Seed the Database with Sample Data
-We need to populate the database with vehicles, an admin account, and a test customer:
+#### Step 3: Seed Database
 ```powershell
 cd ../server
 npm run seed
 ```
-*(You will see a success message in the console indicating that sample data has been inserted into MongoDB)*
 
-### Step E: Start the Development Servers
-Start both the backend server and frontend client concurrently:
+#### Step 4: Start Backend Server
+In a new terminal window:
+```powershell
+cd C:\Users\ragul\.gemini\antigravity-ide\scratch\car-rental-admin-system\server
+npm run dev
+```
 
-1.  **Start the Backend Server (Terminal 1):**
-    ```powershell
-    cd C:\Users\ragul\.gemini\antigravity-ide\scratch\car-rental-admin-system\server
-    npm run dev
-    ```
-    *The server will run on `http://localhost:5000`.*
+#### Step 5: Start Frontend Client
+In another terminal window:
+```powershell
+cd C:\Users\ragul\.gemini\antigravity-ide\scratch\car-rental-admin-system\client
+npm run dev
+```
 
-2.  **Start the Frontend client (Terminal 2):**
-    ```powershell
-    cd C:\Users\ragul\.gemini\antigravity-ide\scratch\car-rental-admin-system\client
-    npm run dev
-    ```
-    *The client will run on `http://localhost:5173`.*
-
-Open your web browser and navigate to `http://localhost:5173` to view the application!
+Open `http://localhost:5173` to view the application!
 
 ---
 

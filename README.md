@@ -117,25 +117,71 @@ erDiagram
 
 ## 🚀 Installation & Setup Instructions
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) installed (v16+ recommended).
-- [MongoDB Community Server](https://www.mongodb.com/try/download/community) installed and running locally.
+Choose either the **Recommended Python CLI Method** (simplest automated setup), the **One-Click Script Launchers**, or the **Manual Terminal Method**.
 
-### Step 1: Navigate to Project Directory
+### Prerequisites
+- **Node.js** (v16+ recommended) - [Download](https://nodejs.org/)
+- **MongoDB Community Server** (running locally on port 27017) - [Download](https://www.mongodb.com/try/download/community)
+- **Python 3.6+** (for the automated Python CLI runner)
+
+---
+
+### Method 1: Python CLI Runner (Recommended)
+
+You can install the local Python package in editable mode which provides a single command `car-rental` (or via Python module run) to automate dependency installation, environment setup, database seeding, and concurrent server execution.
+
+#### Step 1: Install the Package
+Open your terminal in the project root directory and run:
 ```bash
-cd car-rental-admin-system
+pip install -e .
 ```
 
-### Step 2: Configure Server `.env` File
-Create a `.env` file under `/server` folder:
-```text
+#### Step 2: Set Up dependencies and Config
+```bash
+car-rental setup
+```
+*Alternative:* `python -m car_rental_cli.main setup` (use if the Python Scripts directory is not in your system's PATH)
+
+#### Step 3: Seed Database
+```bash
+car-rental seed
+```
+*Alternative:* `python -m car_rental_cli.main seed`
+
+#### Step 4: Launch Concurrent Servers
+```bash
+car-rental start
+```
+*Alternative:* `python -m car_rental_cli.main start`
+
+This runs both the backend server and frontend client concurrently in the same terminal, prefixing and merging their log outputs dynamically. Press `Ctrl+C` to gracefully terminate both servers.
+
+---
+
+### Method 2: One-Click Script Launchers
+
+We have provided wrapper launcher scripts at the root of the project:
+*   **Windows (Command Prompt / Explorer)**: Double-click or run [run.bat](file:///c:/Users/ragul/.gemini/antigravity-ide/scratch/car-rental-admin-system/run.bat).
+*   **Bash / macOS / Linux**: Run `./run.sh` or `bash run.sh` using [run.sh](file:///c:/Users/ragul/.gemini/antigravity-ide/scratch/car-rental-admin-system/run.sh).
+
+These scripts automatically verify Node.js and MongoDB, create server `.env`, install client/server dependencies, prompt for database seeding, and launch both servers in separate windows.
+
+---
+
+### Method 3: Manual Terminal Commands (No Python)
+
+If you don't have Python installed, you can perform setup manually:
+
+#### Step 1: Configure Server `.env` File
+Create a `.env` file under the `/server` folder:
+```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/car_rental_db
 JWT_SECRET=supersecretkeyforcarrentalproject
 NODE_ENV=development
 ```
 
-### Step 3: Install Dependencies
+#### Step 2: Install Node Dependencies
 ```bash
 # Install Server packages
 cd server
@@ -146,21 +192,20 @@ cd ../client
 npm install
 ```
 
-### Step 4: Seed Database Demo Data
-Seed the database with Indian vehicles, admin accounts, customer profiles, and booking history:
+#### Step 3: Seed Database Demo Data
 ```bash
 cd ../server
 npm run seed
 ```
 
-### Step 5: Start Development Servers
+#### Step 4: Start Development Servers
 Run the servers concurrently to start local hosting:
 ```bash
 # Start Backend API (runs on http://localhost:5000)
 cd server
 npm run dev
 
-# Start Frontend App (runs on http://localhost:5173 or similar Vite default)
+# Start Frontend App (runs on http://localhost:5173)
 cd ../client
 npm run dev
 ```

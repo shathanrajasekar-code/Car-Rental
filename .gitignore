@@ -31,3 +31,13 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Python build and cache artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+dist/
+build/
+*.egg-info/
+
